@@ -1,2 +1,2 @@
 # PythonBF
-write brain fuck by pythin
+write brain fuck by python
