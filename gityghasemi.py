@@ -32,7 +32,7 @@ def addpointer():
         cell_ind=cell_ind+1
         if cell_ind>len(cells):
             raise Exception('error:overflow pointer')
-        i=i+1
+        
      
 	#reduce pointer	 
 def reducepointer(): 
@@ -40,7 +40,7 @@ def reducepointer():
         cell_ind=cell_ind-1
         if cell_ind < 0:
             raise Exception('error:underflow pointer- tried to move to cell -1')
-        i=i+1
+        
     
     #increasing cell
 def increascell(): 
@@ -48,7 +48,7 @@ def increascell():
         cells[cell_ind]=cells[cell_ind]+1
         if cells[cell_ind] > 255:
             raise Exception('Memory overflow at location %i' % cell_ind)
-        i=i+1
+        
 		
 		
     #decreasing cell    
@@ -57,7 +57,7 @@ def decreascell():
         cells[cell_ind]=cells[cell_ind]-1
         if cells[cell_ind] < 0:     
             raise Exception('Memory underflow at location %i' % cell_ind)
-        i=i+1
+        
         
 	#begining loop		
 def firstloop():
@@ -65,7 +65,7 @@ def firstloop():
          
     if cells[cell_ind] == 0:
         i = loop_pos[i] 
-    i+=1
+    
 	
 	
 	#end of loop
@@ -73,20 +73,16 @@ def endloop():
     global cells,cell_ind,i
     if cells[cell_ind] != 0:
         i = loop_pos[i]
-    i +=1   
+       
 
     #output
 def endofchar():      
     global YOUR_NAME,i,cells,cell_ind
     YOUR_NAME+=(chr(cells[cell_ind]))
     #print(cells[cell_ind]) 
-    i=i+1
     
-    #Ignore undefined characters in bf
-def nop():
-    pass
-  
-  
+    
+   
 while i<len(bf_code):
 
     d=bf_code[i]
@@ -105,8 +101,8 @@ while i<len(bf_code):
     
     try:
         switcher[d]()
+        i=i+1
     except KeyError:
-        nop()
         i=i+1
 
 #print output of bf code
