@@ -3,35 +3,32 @@ import gityghasemi
 
 class Test_pythonbf(unittest.TestCase):
     def test_totalcode(self):
-        bfcode='+++++++++++11[->+++++++77>++++++++++110>++++++++++110>++++++++++110>+++++++++99>+++++++++99>+++++++++99>+++33>++++++66>+++++++++99>+++++++++99>++++++++++110>+++++++++99>+++++++++99>++++++++++110>+++++++++99>+++++++++99<<<<<<<<<<<<<<<<<]>.>+.>+++++.>++++++.>--.>+++.>--.>-.>-.>+++++.>--.>.>++++.>--.>++++.>+++++.>--.'
-        self.assertEqual(gityghasemi.execute(bfcode), 'Mostafa Ahangarha')
+        bf_code='+++++++++++11[->+++++++77>++++++++++110>++++++++++110>++++++++++110>+++++++++99>+++++++++99>+++++++++99>+++33>++++++66>+++++++++99>+++++++++99>++++++++++110>+++++++++99>+++++++++99>++++++++++110>+++++++++99>+++++++++99<<<<<<<<<<<<<<<<<]>.>+.>+++++.>++++++.>--.>+++.>--.>-.>-.>+++++.>--.>.>++++.>--.>++++.>+++++.>--.'
+        self.assertEqual(gityghasemi.python_bf(bf_code),'Mostafa Ahangarha')
 
-        bfcode='++++[->++++++++<]-[----->>++>++<<<]>>+++++++.>-.+++.<+++++.>-------.+++.<<.>>.+.+++.------.+++++++.-----.<<+.'
-        self.assertEqual(gityghasemi.execute(bfcode), 'mehrad dehbid!')
+        bf_code='++++[->++++++++<]-[----->>++>++<<<]>>+++++++.>-.+++.<+++++.>-------.+++.<<.>>.+.+++.------.+++++++.-----.<<+.'
+        self.assertEqual(gityghasemi.python_bf(bf_code), 'mehrad dehbid!')
 
-        bfcode='>+++++++[<++++++++++> -]<+.print G>> ++++++++[< +++++++++>-]<+.print I>>+++++++++++++++++++++[<++++>-]< .print T>> +++++++++++[< ++++++++> -]<+.print Y>++++++++++++++++++++++++++++++++.print ''>>+++++++[< ++++++++++> -]<+.print G>> ++++++++[< +++++++++> -]<. print H>> +++++++++++++[< +++++> -]<.print A>> +++++++++++++++++++++[< ++++> -]< -.print S>> +++++++++++++++++++++++[< +++> -]<.print E>> +++++++++++[< +++++++>-]<.print M>>++++++++[<+++++++++>-]<+.print I'
-        self.assertEqual(gityghasemi.execute(bfcode), 'GITY GHASEMI')
+        bf_code='>+++++++[<++++++++++> -]<+.print G>> ++++++++[< +++++++++>-]<+.print I>>+++++++++++++++++++++[<++++>-]< .print T>> +++++++++++[< ++++++++> -]<+.print Y>++++++++++++++++++++++++++++++++.print ''>>+++++++[< ++++++++++> -]<+.print G>> ++++++++[< +++++++++> -]<. print H>> +++++++++++++[< +++++> -]<.print A>> +++++++++++++++++++++[< ++++> -]< -.print S>> +++++++++++++++++++++++[< +++> -]<.print E>> +++++++++++[< +++++++>-]<.print M>>++++++++[<+++++++++>-]<+.print I'
+        self.assertEqual(gityghasemi.python_bf(bf_code), 'GITY GHASEMI')
         
     def test_errors(self):
         #test unbalance bracket
-        bfcode='++++[->++++++++<]------>>++>++<<<].'
-        self.assertRaises(Exception,gityghasemi.execute,bfcode)
+        bf_code='++++[->++++++++<]------>>++>++<<<].'
+        self.assertRaises(Exception,gityghasemi.python_bf,bf_code)
         
-        #test overflow pointer
-        bfcode='>'*700000 + '++++.'
-        self.assertRaises(Exception.gityghasemi.execute,bfcode)
-        
+                
         #test underflow pointer
-        bfcode='++++>++++<------.'
-        self.assertRaises(Exception.gityghasemi.execute,bfcode)
+        bf_code='++++>++++<------.'
+        self.assertRaises(Exception,gityghasemi.python_bf,bf_code)
         
         #test Memory overflow
-        bfcode='+'*256+'.'
-        self.assertRaises(Exception.gityghasemi.execute,bfcode)
+        bf_code='+'*256+'.'
+        self.assertRaises(Exception,gityghasemi.python_bf,bf_code)
         
         #test Memory underflow
-        bfcode='++++>++'+'<-----'
-        self.assertRaises(Exception.gityghasemi.execute,bfcode)
+        bf_code='++++>++'+'<-----.'
+        self.assertRaises(Exception,gityghasemi.python_bf,bf_code)
         
 
 if __name__ == '__main__':
