@@ -1,6 +1,32 @@
 
-#operations of bf============================================================================================    
+cell_ind=0
+cells={}
+i=0
+j=0
+YOUR_NAME=""
+bf_code=""
+# positions of  '[' and ']' 
+loop_pos = {}
+d=''
+# stack of open brackets
+stack = []
 
+    
+#operations of bf============================================================================================    
+def resetVariables():
+    global cell_ind, cells,i,j,YOUR_NAME,bf_code,loop_pos, d,stack
+    
+    cell_ind=0
+    cells={}
+    i=0
+    j=0
+    YOUR_NAME=""
+    bf_code=""
+    # positions of  '[' and ']' 
+    loop_pos = {}
+    d=''
+    # stack of open brackets
+    stack = []
 
       # adding pointer
 def addpointer(): 
@@ -14,6 +40,7 @@ def reducepointer():
     global cell_ind,i
     cell_ind=cell_ind-1         
     if cell_ind < 0:
+        
         raise Exception('error:underflow pointer- tried to move to cell -1')
             
         
@@ -22,9 +49,12 @@ def increascell():
     global cells,cell_ind,i
     if cells.get(cell_ind) is None:
         cells[cell_ind]=0
-    cells[cell_ind]=cells[cell_ind]+1
-    if cells[cell_ind] > 255:
-        raise Exception('Memory overflow at location %i' % cell_ind)
+    if cells[cell_ind] == 255:
+        cells[cell_ind]=0
+    else:
+        cells[cell_ind]=cells[cell_ind]+1
+    
+        
             
 
         #decreasing cell    
@@ -32,9 +62,12 @@ def decreascell():
     global cells,cell_ind,i
     if cells.get(cell_ind) is None:
         cells[cell_ind]=0
-    cells[cell_ind]=cells[cell_ind]-1
-    if cells[cell_ind] < 0:     
-        raise Exception('Memory underflow at location %i' % cell_ind)
+    if cells[cell_ind] == 0:
+        cells[cell_ind]=255
+    else:
+        cells[cell_ind]=cells[cell_ind]-1
+    
+        
             
     #begining loop    
 def firstloop():
@@ -67,10 +100,11 @@ def endofchar():
 
 #runing code=============================================================================================  
 def python_bf(BF_CODE):
-    global cell_ind,cells,i,j,YOUR_NAME,bf_code,loop_pos,d,stack
+    global cell_ind,cells,i,j,R_NAME,bf_code,loop_pos,d,stack
+    resetVariables()
     bf_code=BF_CODE
     
-
+    
     #Diagnosis of brackets==================================================================================
     
     while j<len(bf_code):
@@ -86,7 +120,16 @@ def python_bf(BF_CODE):
             loop_pos[start]=j
             loop_pos[j]=start
         j+=1
-
+   # map the inputs to the function blocks
+    switcher = {'+' : increascell,
+            '-' :decreascell,
+            '>' : addpointer,
+            '<' : reducepointer,
+            '.' : endofchar,
+            '[' : firstloop,
+            ']' : endloop,
+               
+        }
      
      #main part============================================================================================
         
@@ -94,16 +137,7 @@ def python_bf(BF_CODE):
     
         d=bf_code[i]
         
-    # map the inputs to the function blocks
-        switcher = {'+' : increascell,
-               '-' :decreascell,
-               '>' : addpointer,
-               '<' : reducepointer,
-               '.' : endofchar,
-               '[' : firstloop,
-               ']' : endloop,
-               
-        }
+ 
         
         try:
             switcher[d]()
@@ -119,21 +153,7 @@ def python_bf(BF_CODE):
 
 
 if __name__ == '__main__':
-    
-    #initialize parameters===================================================================================
-    global cell_ind,cells,i,j,YOUR_NAME,bf_code,loop_pos,d,stack
-    cell_ind=0
-    cells={}
-    i=0
-    j=0
-    YOUR_NAME=""
-    bf_code=""
-    # positions of  '[' and ']' 
-    loop_pos = {}
-    d=''
-    # stack of open brackets
-    stack = []
-    
+     
     result=python_bf(bf_code)    
     print(result)
 
